@@ -2,8 +2,8 @@ from flask import Flask, jsonify, request, abort
 import wtiproj03_ETL as Etl
 import json
 
-app=Flask(__name__)
-app.config["DEBUG"]=True
+app = Flask(__name__)
+app.config["DEBUG"] = True
 tools = Etl.Tools()
 rat = []
 for i in range(0, 20):
@@ -12,15 +12,16 @@ for i in range(0, 20):
 ratings = [
     {
         'id': 1,
-        'title': u'genre-Anime',
-        'rating': 420
+        'title': u'genre-Children',
+        'rating': 40
     },
     {
         'id': 2,
-        'title': u'genre-Porn',
-        'rating': 69
+        'title': u'genre-Polish',
+        'rating': 621
     }
 ]
+
 user_profiles = [
     {
         'user_id': 1,
@@ -70,32 +71,36 @@ user_profiles = [
     }
 ]
 
-@app.route('/rating' , methods=['POST'])
-def post_one_row():
 
+@app.route('/rating', methods=['POST'])
+def post_one_row():
     if not request.json:
         abort(400)
-    if not 'movieID' in request.json:
+    if 'movieID' not in request.json:
         abort(400)
 
     content = request.get_json()
     rat.append(content)
     return content
 
-@app.route('/ratings' , methods=['GET'])
+
+@app.route('/ratings', methods=['GET'])
 def get_all_rows():
     return jsonify(rat)
 
-@app.route('/ratings' , methods=['DELETE'])
+
+@app.route('/ratings', methods=['DELETE'])
 def delete_rows():
     rat.clear()
     return ""
 
-@app.route('/avg-genre-ratings/all-users' , methods=['GET'])
+
+@app.route('/avg-genre-ratings/all-users', methods=['GET'])
 def read_all_ratings():
     return jsonify(user_profiles)
 
-@app.route('/avg-genre-ratings/user' , methods=['GET'])
+
+@app.route('/avg-genre-ratings/user', methods=['GET'])
 def read_ratings_of_user():
     if 'userID' in request.args:
         user_id = int(request.args['userID'])
@@ -107,10 +112,11 @@ def read_ratings_of_user():
             return jsonify(user)
     return "Error, no such user"
 
+
 app.run()
 
-#save one row: POST on '/rating'
-#read all rows: GET on '/ratings'
-#delete all rows: DELETE on '/ratings'
-#read all ratings of genres by all users: GET on '/avg-genre-ratings/all-users'
-#read ratings of genres per user: GET on '/avg-genre-ratings/user<userID>'
+# save one row: POST on '/rating'
+# read all rows: GET on '/ratings'
+# delete all rows: DELETE on '/ratings'
+# read all ratings of genres by all users: GET on '/avg-genre-ratings/all-users'
+# read ratings of genres per user: GET on '/avg-genre-ratings/user<userID>'

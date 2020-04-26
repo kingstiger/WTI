@@ -1,6 +1,7 @@
 import requests as req
 import random
 import json
+import time
 
 
 class MyReq:
@@ -97,10 +98,17 @@ def delete_all_rows():
 if __name__ == '__main__':
     methods = [get_all_rows, read_user_ratings, read_all_ratings, delete_all_rows, post_new_row, get_all_rows]
     controller = ""
-    while 'N' not in controller and 'n' not in controller:
-        for meh in methods:
-            try:
-                meh()
-            except Exception as e:
-                print(e)
-        controller = input("Restart?")
+    start = time.time()
+    times = 10000
+    try:
+        while 1 < times:
+            for meh in methods:
+                try:
+                    meh()
+                    times = times - 1
+                except Exception as e:
+                    print(e)
+    finally:
+        stop = time.time()
+        print("Elapsed Time: ")
+        print((stop - start).__str__() + "ms")

@@ -7,8 +7,9 @@ def push(data, queue_name):
     red.rpush(queue_name, data)
     return
 
+
 def flush():
-    red.flushdb(asynchronous=false)
+    red.flushdb(asynchronous=False)
     return
 
 
@@ -20,7 +21,7 @@ def get(queue_name):
     except IndexError:
         raise IndexError("No data")
     except:
-       print("Error occurred, try again")
+        print("Error occurred, try again")
     return got_msg
 
 

@@ -1,6 +1,5 @@
 from flask import Flask, jsonify, request, abort
-import wtiproj03_ETL as Etl
-import json
+from wtiproj03 import wtiproj03_ETL as Etl
 
 app = Flask(__name__)
 app.config["DEBUG"] = True

@@ -1,17 +1,13 @@
-import wtiproj01_lib as red
-import csv
+from witproj01 import wtiproj01_lib as red
 import pandas as pd
-import json
-import os.path
 import time
 import sys
-from os import path
 
 queue = "queue"
 frequency_per_second = sys.argv[1]
-time_to_sleep = 1.0/float(frequency_per_second)
+time_to_sleep = 1.0 / float(frequency_per_second)
 
-#columns: userID \t movieID \t rating \t date_day \t date_month \t date_year \t date_hour \t date_minute \t date_second
+# columns: userID \t movieID \t rating \t date_day \t date_month \t date_year \t date_hour \t date_minute \t date_second
 
 dataframe = pd.read_csv("/home/peter/Studia/WTI/user_ratedmovies.dat", sep='\t')
 col_names = dataframe.columns
